@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>METANIT.COM</title>
+</head>
+<body>
+    <h2>Изменение товара</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Введите название товара</label><br>
+            <input type="text" name="name" value="{{product.name}}" />
+        </p>
+        <p>
+            <label>Введите цену</label><br>
+            <input type="number" name="price" value="{{product.price}}"/>
+        </p>
+        <p>
+            <label>Введите компанию</label><br>
+            <select name="company">
+            {% for company in companies %}
+                <option value="{{company.id}}"
+                {%if company.id == product.company_id%}
+                  selected
+                {%endif%}
+            >{{company.name}}</option>
+            {% endfor %}
+            </select>
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>

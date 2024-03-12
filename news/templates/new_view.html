@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .list_wrapper{
+    padding: 10px 0 24px 0;}
+    .list_item {
+    padding:24px;
+    border-radius:24px;
+    box-shadow:0 3px 2px rgba(0,0,0,.05);
+    border:1px solid rgba(0,0,0,.025)}
+    .list_item_header {
+    font-size:24px;
+    font-weight: 600;
+    }
+    .list_item_content {
+    font-size: 14px;
+    font-weight: 400;}
+    .list_item_actions {}
+</style>
+    <h2>Все новости</h2>
+{% for news_item in new_list %}
+<div class="card my-4" >
+    {% if news_item.image %}
+    <img style="object-fit: cover; height: 400px"  src="{{ news_item.image.url }} " class="card-img-top" alt="...">
+    {%else%}
+    <img style="object-fit: cover; height: 400px"  src="{%static 'img/placeholder.png' %}" class="card-img-top" alt="...">
+    {% endif %}
+  <div class="card-body">
+      <a href="{% url 'NewsDetail' pk=news_item.id %}" class="link-offset-2 link-underline link-underline-opacity-0"> <h5 class="card-title">{{ news_item.title  }}</h5></a>
+    <p class="card-text">{{ news_item.description }}</p>
+      <a href="{% url 'NewsDetail' pk=news_item.id %}" class="btn btn-outline-info btn-sm">Читать далее</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

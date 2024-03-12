@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div >
+        <div class="card mb-3">
+          <div class="card-header">
+            <h2>{{ object.title }}</h2>
+          </div>
+            <div class="card-body">
+              <div class="media">
+                  {% if object.image %}
+                      <img style="object-fit: cover; height: 600px" class="mr-3" src="{{ object.image.url }}" width="100%"  alt="photo">
+                    {%else%}
+                    <img style="object-fit: cover; height: 600px" class="mr-3"  src="{%static 'img/placeholder.png' %}" width="100%" alt="photo">
+                    {% endif %}
+             <div class="media-body">
+                      <p class="card-text">{{ object.description }}</p>
+                 {% if object.author == request.user%}
+                 <a href = "/update/{{object.id}}" class ="btn btn-primary">Редактировать новость</a>
+                 {% endif %}
+                 <hr class = 'my-4'>
+                 <div class = 'my-4'>
+                 <h5> Комментарии </h5>
+                 <ul>
+                 {%for comment in existing_comments%}
+                 <li> {{comment.user.username}}: {{ comment.comment }} </li>
+                 {%endfor%}
+                 </ul>
+                 </div>
+                 <hr class = 'my-4'>
+                 <div class = 'my-4'>
+                                          {% if request.user.is_authenticated %}
+                 <h5>Оставьте свой комментарий</h5>
+                 <form method="post">
+                     {%csrf_token%}
+                     <textarea style="width:100%" name="comment"></textarea>
+                     <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                     {% endif %}
+                 </div>
+        </div>
+    </div>
+</div>
+ </div>
+</div>
+{% endblock content %}

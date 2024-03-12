@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="center">
+    <form method="post">
+        {% csrf_token %}
+        {% if user.profile and user.profile.profile_pic %}
+			<img src="{{user.profile.profile_pic.url}}" alt="{{ user.username }}" class="rounded-circle" style="width: 150px; height: 150px"  accept=".jpg,.jpeg,.png"/>
+        {% else %}
+        <img src="/media/profile_pics/avatar.jpg" alt="{{ user.username }}" class="rounded-circle" style="width: 150px; height: 150px"  accept=".jpg,.jpeg,.png"/>
+	    {% endif %}
+        {{ form.as_p }}
+        <button class="btn btn-success" type="submit">Отправить</button>
+    </form>
+        </div>
+{% endblock content %}
+
+
+<!--    <h1>Профиль пользователя: {{ request.user.username  }}</h1>-->
+<!--    <p>Имя: {{ request.user.first_name }}</p>-->
+<!--    <p>Фамилия: {{ request.user.last_name }}</p>-->
+<!--    <p>Email: {{ request.user.email }}</p>-->
+<!--    <p>Биография: {{ request.user.bio }}</p>-->
+<!--    {% if object.profile_pic %}-->
+<!--        <img src="{{ object.profile_pic.url }}" alt="Profile Picture">-->
+<!--    {% endif %}-->

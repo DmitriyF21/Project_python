@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post">
+{% csrf_token %}
+<p>Вы уверены, что хотите удалить публицицию? {{ news }}?</p>
+<input type="submit" value="Confirm">
+{% endblock content %}

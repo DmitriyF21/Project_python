@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        header {
+        width: 100%;
+        height: 80px;
+        position: relative;
+        display: flex;
+        background-color: rgb(255,255,255);
+        padding: 24px;}
+
+        .content_wrapper {
+        margin:16px auto 16px auto;
+        background-color: rgb(255,255,255);
+        width: 1024px;
+        padding: 24px;
+        border-radius: 24px;}
+
+        .nav_links {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        }
+
+        footer {width: 100%;
+        height: 80px;
+        background-color: rgb(255,255,255);
+        margin-top:auto;}
+
+        body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(245,245,245) !important;}
+
+        .header__container {
+        display: flex;
+        width: 1024px;
+        margin: 0 auto;
+        justify-content: space-between;
+        }
+
+        .header__links {
+        display: flex;
+        gap: 16px;
+        }
+
+        .header__btn {
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        opacity: 0.8;
+        transition: all 0.2s;
+        }
+
+        .header__btn:hover {
+        opacity: 1;
+        }
+
+        .header__account {
+        color: black !important;
+        text-decoration: none;
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        gap: 4px;
+        opacity: 0.8;
+        transition: all 0.2s;
+        }
+
+        .header__account:hover {
+        opacity: 1;
+        }
+
+        .search_button {
+        position: absolute;
+        }
+
+        .logo {
+        font-size: 24px;
+        font-weight: 800;
+        opacity: 0.8;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: black;
+        }
+
+        .logo:hover {
+        opacity: 1;
+        }
+
+        header a {
+        font-size:18px;
+        opacity: 0.8;
+        transition: all 0.2s;
+        text-decoration: none;
+        color: black;
+        }
+
+        header a:hover {
+        opacity: 1;
+        }
+
+    </style>
+    <meta charset="utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>{% block title %}Default title{% endblock title %}</title>
+</head>
+<body>
+<header>
+ <div class = "header__container">
+     <a class = "logo" href="/">NEWS</a>
+     <div class = "header__links">
+         {% if request.user.is_authenticated %}
+         <a href=" {% url 'NewsCreate' %}"> <img class = 'header__btn' src = "{%static 'icons/plus.svg' %}"/>  </a>
+         |
+         <a href="{% url 'NewsGet' %}"> <img class = 'header__btn' src = "{%static 'icons/pen.svg' %}"/>  </a>
+         |
+         <a href="{% url 'profile' username=request.user.username %}" class = 'header__account'>{{request.user.username}} <img height = "24px" width = "24px" src = "{%static 'icons/account-circle.svg' %}"/> </a>
+         <a href="{% url 'logout' %}"> <img class = 'header__btn' src = "{%static 'icons/logout.svg' %}"/>  </a>
+         {% else %}
+         <a href ="{% url 'registration' %}"> Регистрация</a> | <a href ="{% url 'login' %}"> Авторизация</a>
+         {% endif %}
+     </div>
+ </div>
+<a class=" search_button"  type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+  <img  height="32px" width="32px" src = "{%static 'icons/magnify.svg' %}"/>
+</a>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <form class="px-4 py-3" action="{% url 'search' %}" method="get">
+    <div class="input-group">
+      <input name="title" type="text" class="form-control" placeholder="Поиск...">
+      <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+  </form>
+  <div class="dropdown-divider"></div>
+</div>
+</header>
+<div class = "content_wrapper">
+    <div>{% block sidebar%}  {% endblock  %}</div>
+    <div>{% block content%}  {% endblock content %}</div>
+</div>
+
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+

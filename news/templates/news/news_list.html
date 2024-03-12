@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content%}
+    <table class="table table-bordered">
+        <thead><th> Название </th> <th> Описание </th><th> Категория </th><th>Действия</th></thead>
+        {% for object in Neews %}
+        <tr>
+            <td>{{ object.title }}</td>
+            <td>{{ object.description }}</td>
+            <td>{{ object.category }}</td>
+            <td>
+                <a  href="/update/{{object.id}}"> Изменить </a> <br/>
+                <a class ="text-danger" href="/delete/{{object.id}}"> Удалить </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
