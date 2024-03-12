@@ -103,6 +103,23 @@
         opacity: 1;
         }
 
+        .categories-list {
+        width: 320px;
+        display:flex;
+        gap: 8px;
+        flex-wrap: wrap;}
+
+        .category-list-item {
+        padding: 8px 24px;
+        border-radius: 999px;
+        border: 1px solid rgba(0,0,0,0.1);
+        transition: all 0.2s;
+        cursor: pointer}
+
+        .category-list-item:hover {
+        background-color: rgba (0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.3);}
+
     </style>
     <meta charset="utf-8"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -136,6 +153,11 @@
     </div>
   </form>
   <div class="dropdown-divider"></div>
+        <div class = 'categories-list px-4 py-4'>
+        {% for category in categories %}
+            <a class="category-list-item" href="{% url 'news_category' slug=category.slug %}">{{ category.category }}</a>
+        {% endfor %}
+    </div>
 </div>
 </header>
 <div class = "content_wrapper">
